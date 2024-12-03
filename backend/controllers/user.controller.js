@@ -103,4 +103,33 @@ const userLogin = async (req, res, next) => {
     }
 }
 
-export { register, userLogin }
+const getProfile = async (req, res, next) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({
+                success: false,
+                message: "Unauthorized: User not found in request"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Fetched user successfully",
+            user: {
+                id: req.user._id,
+                firstName: req.user.fullName.firstName,
+                lastName: req.user.fullName.lastName,
+                email: req.user.email
+            }
+        })
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        })
+    }
+}
+
+export { register, userLogin, getProfile }

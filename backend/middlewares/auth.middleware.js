@@ -34,3 +34,5 @@ const AuthUser = async (req, res, next) => {
             message: "Unauthorized: Token verification failed" });
     }
 }
+
+export  { AuthUser };
