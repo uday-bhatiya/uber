@@ -36,7 +36,7 @@ const register = async (req, res, next) => {
 
         return res.status(201).json({
             success: true,
-            message: "User registed succussfully",
+            message: "User registered succussfully",
             token,
             user: {
                 id: user._id,
@@ -69,7 +69,7 @@ const userLogin = async (req, res, next) => {
         if (!user) {
             return res.status(401).json({
                 success: false,
-                message: "Failed to fatch user",
+                message: "Failed to fetch user",
             })
         }
 
@@ -116,12 +116,7 @@ const getProfile = async (req, res, next) => {
         return res.status(200).json({
             success: true,
             message: "Fetched user successfully",
-            user: {
-                id: req.user._id,
-                firstName: req.user.fullName.firstName,
-                lastName: req.user.fullName.lastName,
-                email: req.user.email
-            }
+            user: req.user
         })
     } catch (error) {
         console.error(error);
