@@ -375,7 +375,9 @@ Fetches the authenticated captain's profile details.
 ### **`/captain/logout` Endpoint**
 
 #### **Description**
+
 Logs out the authenticated captain by blacklisting the token and clearing the cookie.
+
 ---
 
 #### **HTTP Method**
