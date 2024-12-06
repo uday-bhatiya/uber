@@ -320,7 +320,9 @@ The request body should be in JSON format and include the following fields:
 ### **`/captain/profile` Endpoint**
 
 #### **Description**
+
 Fetches the authenticated captain's profile details.
+
 ---
 
 #### **HTTP Method**
