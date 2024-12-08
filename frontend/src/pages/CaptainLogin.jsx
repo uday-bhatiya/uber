@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const CaptainLogin = () => {
@@ -7,13 +7,16 @@ const CaptainLogin = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [captainData, setCaptainData] = useState({});
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     setLoading(true);
     e.preventDefault();
 
-    setCaptainData({
+    const captainData = ({
       email: email,
       password: password
     });
@@ -22,12 +25,22 @@ const CaptainLogin = () => {
     setPassword('');
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/captains/login', captainData);
+      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, captainData);
+      // console.log(response)
+
+      if (response.data.success) {
+        setMessage('Captain logged successfully!');
+        navigate('/home');
+      } else {
+        setError(response.data.message || 'Registration failed. Please try again.');
+      }
 
     } catch (error) {
-
+      setError(error.response?.data?.message || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
+      setEmail('');
+      setPassword('');
     }
   }
 

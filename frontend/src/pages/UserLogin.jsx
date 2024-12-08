@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const UserLogin = () => {
@@ -7,6 +7,10 @@ const UserLogin = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
 
@@ -24,13 +28,15 @@ const UserLogin = () => {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData);
       
       if (response.data.success) {
-        setMessage('User registered successfully!');
+        setMessage('User logged successfully!');
+        navigate('/home');
       } else {
         setError(response.data.message || 'Registration failed. Please try again.');
       }
 
     } catch (error) {
       setError(error.response?.data?.message || 'Something went wrong. Please try again.');
+      console.log(error)
     } finally {
       setLoading(false);
       setEmail('');
