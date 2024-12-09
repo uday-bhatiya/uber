@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { CaptainDataContext } from '../context/CaptainContext.jsx';
 
 const CaptainLogin = () => {
 
@@ -11,6 +12,8 @@ const CaptainLogin = () => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
+
+  const { captain, setCaptain } = useContext(CaptainDataContext);
 
   const submitHandler = async (e) => {
     setLoading(true);
@@ -30,7 +33,9 @@ const CaptainLogin = () => {
 
       if (response.data.success) {
         setMessage('Captain logged successfully!');
-        navigate('/home');
+        setCaptain(response.data.captain);
+        localStorage.setItem('token', response.data.token)
+        navigate('/captain-home');
       } else {
         setError(response.data.message || 'Registration failed. Please try again.');
       }

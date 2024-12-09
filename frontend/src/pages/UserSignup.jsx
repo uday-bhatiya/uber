@@ -32,6 +32,7 @@ const UserSignup = () => {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, userData);
 
       if (response.data.success) {
+        localStorage.setItem('token', response.data.token);
         setMessage('User registered successfully!');
         navigate('/home');
       } else {
@@ -118,7 +119,6 @@ const UserSignup = () => {
               type='submit'
                 className='bg-[#111] text-white font-semibold mb-3 rounded-lg px-4 py-2 w-full text-lg placeholder:text-base'
               >{loading? 'Loading please wait' : 'Create account'}</button>
-
             </form>
 
 

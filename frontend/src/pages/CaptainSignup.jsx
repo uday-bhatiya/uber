@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { CaptainDataContext } from '../context/CaptainContext.jsx';
 
 const CaptainSignup = () => {
 
@@ -9,15 +10,14 @@ const CaptainSignup = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [ltd, setLtd] = useState('');
-  const [lng, setLng] = useState('');
-  const [status, setStatus] = useState('inactive');
   const [color, setColor] = useState('');
   const [plate, setPlate] = useState('');
   const [capacity, setCapacity] = useState('');
   const [vehicleType, setVehicleType] = useState('');
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
+
+  const { captain, setCaptain } = useContext(CaptainDataContext);
 
   const navigate = useNavigate();
 
@@ -35,11 +35,6 @@ const CaptainSignup = () => {
         },
         email: email,
         password: password,
-        location: {
-          ltd: ltd,
-          lng: lng
-        },
-        status: status,
         vehicle: {
           color: color,
           plate: plate,
@@ -49,26 +44,23 @@ const CaptainSignup = () => {
       }
 
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/register`, captainData);
-      console.log(response)
       if (response.data.success) {
         setMessage('Captain registered successfully!');
-        navigate('/home');
+        setCaptain(response.data.captain);
+        localStorage.setItem('token', response.data.token);
+        navigate('/captain-home');
       } else {
         setError(response.data.message || 'Registration failed. Please try again.');
       }
 
     } catch (error) {
       setError(error.response?.data?.message || 'Something went wrong. Please try again.');
-      console.log(error)
     } finally {
       setLoading(false);
       setFirstName('');
       setLastName('');
       setEmail('');
       setPassword('');
-      setLtd('');
-      setLng('');
-      setStatus('');
       setColor('');
       setPlate('');
       setCapacity('');
@@ -91,7 +83,7 @@ const CaptainSignup = () => {
               submitHandler(e)
             }}>
 
-              <label className='text-lg w-full  font-medium mb-2'>What's our Captain's name</label>
+              <label className='text-lg w-full  font-medium mb-2'>Captain's name</label>
               <div className='flex gap-4 mb-7'>
                 <input
                   required
@@ -115,7 +107,7 @@ const CaptainSignup = () => {
                 />
               </div>
 
-              <label className='text-lg font-medium mb-2'>What's our Captain's email</label>
+              <label className='text-lg font-medium mb-2'>Captain's email</label>
               <input
                 required
                 value={email}
@@ -184,7 +176,7 @@ const CaptainSignup = () => {
                   <option value="" disabled>Vehicle Type</option>
                   <option value="car">Car</option>
                   <option value="auto">Auto</option>
-                  <option value="moto">Moto</option>
+                  <option value="motorcycle">Moto</option>
                 </select>
               </div>
 

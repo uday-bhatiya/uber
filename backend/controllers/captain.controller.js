@@ -128,7 +128,8 @@ const captainLogin = async (req, res, next) => {
             captain: {
                 id: captain._id,
                 email: captain.email
-            }
+            },
+            token
         });
 
 

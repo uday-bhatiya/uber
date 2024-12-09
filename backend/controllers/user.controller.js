@@ -94,6 +94,7 @@ const userLogin = async (req, res, next) => {
                 id: user._id,
                 email: user.email,
             },
+            token
         })
     } catch (error) {
         console.error(error);

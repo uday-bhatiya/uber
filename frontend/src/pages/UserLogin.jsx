@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { UserDataContext } from '../context/UserContext';
 
 const UserLogin = () => {
 
@@ -9,6 +10,8 @@ const UserLogin = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
+
+  const { user, setUser } = useContext(UserDataContext);
 
   const navigate = useNavigate();
 
@@ -21,22 +24,25 @@ const UserLogin = () => {
       email: email,
       password: password
     });
+
     setEmail('');
     setPassword('');
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData);
-      
       if (response.data.success) {
+
         setMessage('User logged successfully!');
+        setUser(response.data.user);
+        localStorage.setItem('token', response.data.token)
         navigate('/home');
+
       } else {
         setError(response.data.message || 'Registration failed. Please try again.');
       }
 
     } catch (error) {
       setError(error.response?.data?.message || 'Something went wrong. Please try again.');
-      console.log(error)
     } finally {
       setLoading(false);
       setEmail('');
