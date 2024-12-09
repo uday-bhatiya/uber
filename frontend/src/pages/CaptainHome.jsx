@@ -1,8 +1,11 @@
-import React from 'react'
+import React from 'react';
+import CaptainLogoutBtn from '../components/CaptainLogoutBtn.jsx';
 
 const CaptainHome = () => {
   return (
-    <div>CaptainHome</div>
+    <div>
+      <CaptainLogoutBtn />
+    </div>
   )
 }
 
