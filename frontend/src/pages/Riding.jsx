@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { FaLocationCrosshairs, FaLocationDot, FaWallet } from 'react-icons/fa6';
 
 const Riding = () => {
     return (
@@ -34,20 +35,69 @@ const Riding = () => {
                     </div>
                 </div>
 
-                <div className='w-full md:w-[60%] lg:w-[65] h-full flex flex-col justify-between relative overflow-hidden'>
+                <div className='w-full md:w-[60%] lg:w-[65] h-full flex flex-col justify-center gap-2 relative overflow-hidden'>
 
-                    <div className='w-full h-1/2'>
+                    <div className='w-full h-1/3 bg-black'>
                         <img
                             className='w-full h-full object-cover'
                             src="assests/map.png" alt="" />
                     </div>
 
-                    <div className='w-full h-1/2 bg-green-600'>
-                        <div ref={vehiclePanelRef} className=' h-full w-full bg-white bottom-0 py-10 px-4 translate-y-full'>
+                    <div className='w-full h-auto'>
+                        <div className='flex flex-col justify-between items-center'>
 
-                            <VehiclePanel panelCloseRef={panelCloseRef} setVehiclePanelOpen={setVehiclePanelOpen} setConfirmRidePanel={setConfirmRidePanel} setPanelOpen={setPanelOpen} />
+                            <div className='w-[80%] md:w-[50%] bg-gray-200 rounded-lg py-2 px-4 my-2 flex items-center justify-between'>
+                                <img className='h-12' src="assests/map.png" alt="" />
+                                <div className='text-right'>
+                                    <h2 className='text-lg font-medium capitalize'>FirstName</h2>
+                                    <h4 className='text-xl font-semibold -mt-1 -mb-1'>LastName</h4>
+                                    <p className='text-sm text-gray-600'>Maruti Suzuki Alto</p>
+                                    <h1 className='text-lg font-semibold'> ride </h1>
+                                </div>
+                            </div>
+
+                            <div className='w-full'>
+
+                                <div className='flex items-center gap-5 p-3 border-b-2'>
+
+                                    <div>
+                                        <div className='flex items-center justify-center gap-2'>
+                                            <FaLocationDot />
+                                            <p className='text-sm -mt-1 text-gray-600'>Pickup</p>
+                                        </div>
+                                        <h3 className='text-lg font-medium'>562/11-A</h3>
+                                    </div>
+                                </div>
+                                <div className='flex items-center gap-5 p-3 border-b-2'>
+
+                                    <div>
+                                        <div className='flex items-center justify-center gap-2'>
+                                            <FaLocationCrosshairs />
+                                            <p className='text-sm -mt-1 text-gray-600'>Destination</p>
+                                        </div>
+                                        <h3 className='text-lg font-medium'>562/11-A</h3>
+                                    </div>
+                                </div>
+                                <div className='flex items-center gap-5 p-3'>
+
+                                    <div>
+                                        <div className='flex items-center justify-center gap-2'>
+                                            <FaWallet />
+                                            <p className='text-sm -mt-1 text-gray-600'>Cash Cash</p>
+                                        </div>
+                                        <h3 className='text-lg font-medium'>₹3000</h3>
+                                    </div>
+                                </div>
+
+                            </div>
 
                         </div>
+
+                        <div className='w-full flex items-center justify-center'>
+                        <button
+                            className='w-[80%] mt-5 my-auto bg-green-600 text-white font-semibold p-2 rounded-lg'>Confirm</button>
+                        </div>
+
                     </div>
 
                 </div>
