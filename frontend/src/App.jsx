@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Landing, UserLogin, UserSignup, CaptainLogin, CaptainSignup, Home, CaptainHome } from './pages';
+import { Landing, UserLogin, UserSignup, CaptainLogin, CaptainSignup, Home, CaptainHome, Riding } from './pages';
 import UserProtectedWrapper from './wrappers/UserProtectedWrapper.jsx';
 import CaptainProtectedWrapper from './wrappers/CaptainProtectedWrapper.jsx';
 
@@ -15,6 +15,7 @@ const App = () => {
           </UserProtectedWrapper>
         } />
         <Route path='/login' element={<UserLogin />} />
+        <Route path='/riding' element={<Riding />} />
         <Route path='/register' element={<UserSignup />} />
         <Route path='/captain-home' element={
           <CaptainProtectedWrapper>

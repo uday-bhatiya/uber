@@ -7,6 +7,8 @@ import gsap from 'gsap';
 import LocationSearchPanel from '../components/LocationSearchPanel.jsx';
 import VehiclePanel from '../components/VehiclePanel.jsx';
 import ConfirmRide from '../components/ConfirmRide.jsx';
+import LookingForDriver from '../components/LookingForDriver.jsx';
+import WaitingForDriver from '../components/WaitingForDriver.jsx';
 
 const Home = () => {
 
@@ -23,6 +25,12 @@ const Home = () => {
 
   const [confirmRidePanel, setConfirmRidePanel] = useState(false);
   const confirmRidePanelRef = useRef(null);
+
+  const [vehicleFound, setVehicleFound] = useState(false);
+  const vehicleFoundRef = useRef(null);
+
+  const [waitingForDriver, setWaitingForDriver] = useState(false);
+  const waitingForDriverRef = useRef(null);
 
   const panelCloseRef = useRef(null);
 
@@ -76,6 +84,36 @@ const Home = () => {
     }
 
   }, [confirmRidePanel])
+
+  useGSAP(() => {
+
+    if (vehicleFound) {
+      gsap.to(vehicleFoundRef.current, {
+        bottom: '-0%',
+      
+      })
+    } else {
+      gsap.to(vehicleFoundRef.current, {
+        bottom: '-100%',
+      })
+    }
+
+  }, [vehicleFound])
+
+  useGSAP(() => {
+
+    if (waitingForDriver) {
+      gsap.to(waitingForDriverRef.current, {
+        bottom: '-0%',
+      
+      })
+    } else {
+      gsap.to(waitingForDriverRef.current, {
+        bottom: '-100%',
+      })
+    }
+
+  }, [waitingForDriver])
 
   return (
     <div className='w-screen h-screen py-4 px-2 relative bg-black'>
@@ -159,7 +197,19 @@ const Home = () => {
 
           <div ref={confirmRidePanelRef} className=' h-full w-full bg-white bottom-[-100%]  px-4 absolute pt-10'>
 
-          <ConfirmRide setConfirmRidePanel={setConfirmRidePanel} />
+          <ConfirmRide setVehicleFound={setVehicleFound} setConfirmRidePanel={setConfirmRidePanel} />
+
+          </div>
+
+          {/* <div ref={vehicleFoundRef} className=' h-full w-full bg-white bottom-[-100%]  px-4 absolute pt-10'>
+
+          <LookingForDriver setVehicleFound={setVehicleFound} setWaitingForDriver={setWaitingForDriver}/>
+
+          </div> */}
+          
+          <div ref={vehicleFoundRef} className=' h-full w-full bg-white bottom-[-100%]  px-4 absolute pt-10'>
+
+          <WaitingForDriver setVehicleFound={setVehicleFound} />
 
           </div>
 
